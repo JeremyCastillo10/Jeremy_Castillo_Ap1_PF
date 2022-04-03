@@ -1,0 +1,216 @@
+@page "/R_Expedientes"
+@page "/R_Expedientes/{ExpedienteId:int}"
+@inject IToastService toastService
+<EditForm Model="expedientes" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+    <div className="container">
+        <div class="card align-items-center">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Registro Expedientes</h3>
+                </div>
+                <div class="card-body">
+                    @*Id*@
+                    <div class="form-row align-items-center">
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Id</label>
+                                <div class="input-group">
+                                    <InputNumber @bind-Value="expedientes.ExpedienteId" class="form-control" />
+                                    <div>
+                                        <button type="submit"
+                                            class="btn btn-primary input-group-text oi oi-magnifying-glass"
+                                            @onclick="Buscar">Buscar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <label>Estudiantes</label>
+
+                   <InputSelect @bind-Value="expedientes.EstudianteId" class="form-control">
+                   <option value="Venezuela">.</option>
+
+                    @foreach (var item in lista)
+                     {
+
+                       <option value="@item.EstudianteId">@item.Nombre @item.Apellidos</option>
+                      }
+
+                  </InputSelect>
+
+               </div>
+
+                @*Detalle Expedientes*@
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Detalle Expedientes</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="input-group d-flex align-items-end"> 
+
+                            <div class="flex-fill mx-2">
+                                <label>Fecha</label>
+                                <InputDate @bind-Value="expedientesDetalle.Fecha" class="form-control" />
+                            </div>
+
+                            <div class="flex-fill mx-2">
+                                <label>Tipo Documento</label>
+                                <InputSelect @bind-Value="expedientesDetalle.TiposDocumentosId" class="form-control">
+
+                                    @foreach (var item in listaTipos)
+                                    {
+
+                                        <option value="@item.TipoDocumentoId">@item.Descripcion</option>
+                                    }
+
+                                </InputSelect>
+                            </div>
+                            <button type="button" class="btn btn-lg btn-primary oi oi-plus"
+                                    @onclick="Agregar">Add</button>
+
+                        </div>
+
+                        <br>
+
+                        <table class="table table-secondary">
+                            <thead class="thead-dark">
+                                <tr class="table-info">
+                                    <th>Fecha</th>
+                                    <th>Tipo Documento</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in expedientes.ExpedienteDetalle)
+                                {
+                                    <tr>
+                                        <td>@item.Fecha</td>
+                                        <td>@item.TiposDocumentosId</td>
+                                        <td>
+                                            <span class="btn btn-sm btn-outline-primary oi oi-ban" href="#"
+                                                @onclick=" (() => RemoverFila(item)) "> Remover
+                                            </span>    
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                <div class="form-group text-center" display: inline-block>
+                    <button type="button" class="btn btn-lg btn-primary oi oi-plus" @onclick="Nuevo"> Nuevo</button>
+                        <button type="submit" class="btn btn-lg btn-success oi oi-media-stop"> Guardar</button>
+                        <button type="button" class="btn btn-lg btn-danger oi oi-trash"
+                            @onclick="Eliminar"> Eliminar</button>
+                </div>
+                </div>
+            </div>
+</EditForm>
+
+@code
+{
+    [Parameter]
+    public int ExpedienteId { get; set; }
+
+    public Estudiantes estudiantes = new Estudiantes();
+    public TiposDocumentos tiposDocumentos = new TiposDocumentos();
+
+    public Expedientes expedientes { get; set; } = new Expedientes();
+
+    public ExpedientesDetalle expedientesDetalle = new ExpedientesDetalle();
+
+    public List<Estudiantes>? lista = new List<Estudiantes>();
+
+    public List<TiposDocumentos>? listaTipos = new List<TiposDocumentos>();
+
+    public List<Expedientes>? listaExpediente = new List<Expedientes>();
+
+    public List<ExpedientesDetalle>? listadetalle = new List<ExpedientesDetalle>();
+
+    
+
+    [Inject]
+    public EstudiantesBLL EstudiantesBLL { get; set; }
+    [Inject]
+    public TiposDocumentosBLL TiposDocumentosBLL { get; set; }
+
+    [Inject]
+    public ExpedientesBLL ExpedientesBLL { get; set; }
+
+
+
+
+    protected override void OnInitialized()
+    {
+        expedientes.ExpedienteId = ExpedienteId;
+        lista = EstudiantesBLL.GetList(e => true);
+        listadetalle = ExpedientesBLL.GetListDetalle(d => true);
+        listaExpediente = ExpedientesBLL.GetList(f => true);
+        listaTipos = TiposDocumentosBLL.GetList(c => true);
+        Buscar();
+    }
+    public void Nuevo()
+    {
+        expedientes = new Expedientes();
+        tiposDocumentos = new TiposDocumentos();
+    }
+
+    public void Buscar()
+    {
+        if (this.expedientes.ExpedienteId> 0)
+        {
+            Expedientes encontrado = ExpedientesBLL.Buscar(this.expedientes.ExpedienteId);
+            if (encontrado != null)
+            {
+                this.expedientes = encontrado;
+                toastService.ShowSuccess("El expediente ha sido Encontrado");
+            }
+            else
+            {
+                toastService.ShowSuccess("No ha sido Encontrado");
+            }
+        }
+    }
+
+    public void Agregar()
+    {
+        this.expedientes.ExpedienteDetalle.Add(expedientesDetalle);
+    }
+
+
+    private void RemoverFila(ExpedientesDetalle item)
+    {
+        this.expedientes.ExpedienteDetalle.Remove(item);
+    }
+
+    private void Guardar()
+    {
+        if (ExpedientesBLL.Guardar(expedientes))
+        {
+            toastService.ShowInfo("Se guardó exitosamente");
+        }
+        else
+            toastService.ShowError("No se pudo guardar.");
+    }
+
+    public void Eliminar()
+    {
+        bool eliminado;
+        eliminado = ExpedientesBLL.Eliminar(expedientes.ExpedienteId);
+        if (eliminado)
+        {
+            Nuevo();
+            toastService.ShowSuccess("Eliminación exitosa");
+        }
+        else
+        {
+            toastService.ShowError("Eliminación fallida");
+        }
+        
+
+    }
+}

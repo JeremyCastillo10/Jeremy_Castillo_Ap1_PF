@@ -1,0 +1,136 @@
+@page "/C_Estudiantes"
+
+<EditForm Model="lista">
+    <DataAnnotationsValidator />
+    <div class="card">
+        <div class="card-header">
+            <h3>Consulta de Estudiantes</h3>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="input-group d-flex align-items-end">
+                    <div class="flex-fill mx-2">
+                        <label>Filtro</label>
+                        <select class="form-control col-2" @bind="Filtro">
+                            <option value="0">Estudiante Id</option>
+                            <option value="1">Nombre</option>
+                            <option value="2">Apellido</option>\
+                            <option value="3">Edad</option>
+                        </select>
+                    </div>
+                    <div class="flex-fill mx-2">
+                        <label>Criterio</label>
+                        <input type="text" class="form-control" @bind="Criterio" />
+                    </div>
+
+                    <div class="flex-fill mx-2">
+                        <label>desde</label>
+                        <InputDate class="form-control" @bind-Value="desde" />
+                    </div>
+
+                    <div class="flex-fill mx-2">
+                        <label>hasta</label>
+                        <InputDate class="form-control" @bind-Value="hasta" />
+                    </div>
+                    
+                    <button type="button" class="btn btn-warning" @onclick="Buscar">
+                        <i class="oi oi-magnifying-glass mr-2"> Buscar</i>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <table class="table table-bordered">
+            <thead  class="thead-darck">
+                <tr class="table">
+                    <th>Estudiante Id</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Direccion</th>
+                    <th>Telefono</th>
+                    <th>Sexo</th>
+                    <th>Fecha Nacimiento</th>
+                    <th>Edad</th>
+                    <th>NacionalidadId</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in lista)
+                {
+                    <tr>
+                        <td>@item.EstudianteId</td>
+                        <td>@item.Nombre</td>
+                        <td>@item.Apellidos</td>
+                        <td>@item.Direccion</td>
+                        <td>@item.Telefono</td>
+                        <td>@item.Sexo</td>
+                        <td>@item.FechaNacimiento</td>
+                        <td>@item.Edad</td>
+                        <td>@item.NacionalidadId</td>
+
+                        <td><a class="btn btn-sm btn-outline-primary oi oi-eye" href="R_Estudiantes/@item.EstudianteId">Ver</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</EditForm>
+
+@code {
+    public string? Filtro { get; set; }
+    public string? Criterio { get; set; }
+
+    public DateTime? desde { get; set; } = null;
+    public DateTime? hasta { get; set; } = null;
+    public List<Estudiantes> lista = new List<Estudiantes>();
+
+    [Inject]
+    public EstudiantesBLL EstudiantesBLL { get; set; }
+
+
+    private void Buscar()
+    {
+        if (Criterio != null)
+        {
+            switch (Filtro)
+            {
+                 case "0":               
+                    if (desde != null || hasta != null)
+                        lista = EstudiantesBLL.GetList(p => p.EstudianteId == int.Parse(Criterio) && (p.FechaNacimiento >= desde && p.FechaNacimiento <= hasta) );
+                    else
+                        lista = EstudiantesBLL.GetList(p => p.EstudianteId == int.Parse(Criterio) || (p.FechaNacimiento >= desde && p.FechaNacimiento <= hasta) );                
+                break;
+
+                case "1":
+                    if (desde != null || hasta != null)
+                        lista = EstudiantesBLL.GetList(p => p.Nombre.ToLower().Contains(Criterio.ToLower()) && (p.FechaNacimiento >= desde && p.FechaNacimiento <= hasta));
+                    else
+                        lista = EstudiantesBLL.GetList(p => p.Nombre.ToLower().Contains(Criterio.ToLower()) || (p.FechaNacimiento >= desde && p.FechaNacimiento <= hasta));                
+                break;
+                
+                case "2":               
+                    if (desde != null || hasta != null)
+                        lista = EstudiantesBLL.GetList(p => p.Apellidos.ToLower().Contains(Criterio.ToLower()) && (p.FechaNacimiento >= desde && p.FechaNacimiento <= hasta));
+                    else
+                        lista = EstudiantesBLL.GetList(p => p.Apellidos.ToLower().Contains(Criterio.ToLower()) || (p.FechaNacimiento >= desde && p.FechaNacimiento <= hasta));               
+                break;
+
+                case "3":           
+                    if (desde != null || hasta != null)
+                        lista = EstudiantesBLL.GetList(p => p.Edad == int.Parse(Criterio) && (p.FechaNacimiento >= desde && p.FechaNacimiento <= hasta) );
+                    else
+                        lista = EstudiantesBLL.GetList(p => p.Edad == int.Parse(Criterio) || (p.FechaNacimiento >= desde && p.FechaNacimiento <= hasta) );                
+                break;                 
+            }
+        }
+        else
+        {
+            lista = EstudiantesBLL.GetList(c => true);
+        }
+    }
+
+
+
+
+
+}

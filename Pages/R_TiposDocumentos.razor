@@ -1,0 +1,137 @@
+@page "/R_TiposDocumentos"
+@page "/R_TiposDocumentos/{TipoDocumentoId:int}"
+
+@inject IToastService toastService
+
+<EditForm Model="tiposDocumentos" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+
+    <div className="Container">
+        <div class="card align-items-center" >
+            <div class="card">
+            <div class="card-header">
+                <h3>Registro de Tipos de Documentos</h3>
+            </div>
+
+            <div class="card-body" >
+                @* Id *@
+                <div class="form-row align-items-center">
+                    <div class="col">
+                        <div class="flex-fill mx-2">
+                            <div class="input-group">
+                                <span class="input-group-text">Tipo Documento Id</span>
+                                <InputNumber @bind-Value="tiposDocumentos.TipoDocumentoId" class="form-control col-4" />
+                                <ValidationMessage For="@(() => tiposDocumentos.TipoDocumentoId)" />
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-primary input-group-text"
+                                        @onclick="Buscar"><span class="oi oi-magnifying-glass">Buscar</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                @*Descripcion*@
+
+               <div class="form-group">
+
+                   <label>Descripcion</label>
+
+                   <InputText class="form-control" @bind-Value = "tiposDocumentos.Descripcion"/>
+
+                   <ValidationMessage For="@(() =>tiposDocumentos.Descripcion)"/>
+
+               </div>
+
+                @*Apellidos*@
+
+               <div class="form-group">
+
+                   <label>Fecha</label>
+
+                   <InputDate class="form-control" @bind-Value = "tiposDocumentos.Fecha"/>
+
+                   <ValidationMessage For="@(() =>tiposDocumentos.Fecha)"/>
+
+               </div>
+               <div class="card-footer">
+                <div class="form-group text-center" display: inline-block>
+                    <button type="button" class="btn btn-lg btn-primary oi oi-plus" @onclick="Nuevo"> Nuevo</button>
+                        <button type="submit" class="btn btn-lg btn-success oi oi-media-stop"> Guardar</button>
+                        <button type="button" class="btn btn-lg btn-danger oi oi-trash"
+                            @onclick="Eliminar"> Eliminar</button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</EditForm>
+
+
+@code {
+
+    [Parameter]
+    public int TipoDocumentoId { get; set; }
+
+    public TiposDocumentos tiposDocumentos{ get; set; } = new TiposDocumentos();
+
+    [Inject]
+    public TiposDocumentosBLL TiposDocumentosBLL { get; set; }
+
+    protected override void OnInitialized()
+    {
+        tiposDocumentos.TipoDocumentoId = TipoDocumentoId;
+        Buscar();
+    }
+
+    public void Buscar()
+    {
+        if (this.tiposDocumentos.TipoDocumentoId> 0)
+        {
+            TiposDocumentos encontrado = TiposDocumentosBLL.Buscar(this.tiposDocumentos.TipoDocumentoId);
+            if (encontrado != null)
+            {
+                this.tiposDocumentos= encontrado;
+                toastService.ShowSuccess("Tipo de Documento encontrado.");
+            }
+            else
+            {
+                toastService.ShowError("No se encontró el Tipo de Documento");
+            }
+        }
+    }
+
+    public void Nuevo()
+    {
+        tiposDocumentos = new TiposDocumentos();
+    }
+
+    public void Guardar()
+    {
+        if (TiposDocumentosBLL.Guardar(tiposDocumentos))
+        {
+            toastService.ShowSuccess("Se guardó exitosamente");
+        }
+        else
+            toastService.ShowError("No se pudo guardar.");
+    }
+
+    private void Eliminar()
+    {
+        bool eliminado;
+        eliminado = TiposDocumentosBLL.Eliminar(tiposDocumentos.TipoDocumentoId);
+        if (eliminado)
+        {
+            toastService.ShowSuccess("Eliminación exitosa");
+            Nuevo();
+        }
+        else
+        {
+            toastService.ShowError("Eliminación fallida");
+        }
+    }
+
+
+}
