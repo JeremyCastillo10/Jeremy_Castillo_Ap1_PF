@@ -20,6 +20,15 @@
                         <label>Criterio</label>
                         <input type="text" class="form-control" @bind="Criterio" />
                     </div>
+                    <div class="flex-fill mx-2">
+                        <label>desde</label>
+                        <InputDate class="form-control" @bind-Value="desde" />
+                    </div>
+
+                    <div class="flex-fill mx-2">
+                        <label>hasta</label>
+                        <InputDate class="form-control" @bind-Value="hasta" />
+                    </div>
                     
                     <button type="button" class="btn btn-warning" @onclick="Buscar">
                         <i class="oi oi-magnifying-glass mr-2"> Buscar</i>
@@ -56,6 +65,8 @@
     public string? Filtro { get; set; }
     public string? Criterio { get; set; }
     public List<TiposDocumentos> lista = new List<TiposDocumentos>();
+    public DateTime? desde { get; set; } = null;
+    public DateTime? hasta { get; set; } = null;
 
     [Inject]
     public TiposDocumentosBLL TiposDocumentosBLL { get; set; }
