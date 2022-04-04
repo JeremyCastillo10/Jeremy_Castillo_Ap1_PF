@@ -112,6 +112,7 @@
     {
         if (TiposDocumentosBLL.Guardar(tiposDocumentos))
         {
+            Nuevo();
             toastService.ShowSuccess("Se guardó exitosamente");
         }
         else

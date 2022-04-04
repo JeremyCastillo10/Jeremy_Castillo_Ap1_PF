@@ -44,8 +44,6 @@ namespace Jeremy_Castillo_Ap1_PF.Entidades
 
         [ForeignKey("EstudianteId")]
 
-        public int Edad { get; set; }
-        public int CantidadAsistencias { get; set; }
 
         public int NacionalidadId { get; set; }
 

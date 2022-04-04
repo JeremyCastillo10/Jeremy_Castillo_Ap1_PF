@@ -20,10 +20,8 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
                     FechaNacimiento = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Sexo = table.Column<char>(type: "TEXT", nullable: false),
                     Direccion = table.Column<string>(type: "TEXT", nullable: false),
-                    Telefono = table.Column<string>(type: "TEXT", nullable: false),
+                    Telefono = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
-                    Edad = table.Column<int>(type: "INTEGER", nullable: false),
-                    CantidadAsistencias = table.Column<int>(type: "INTEGER", nullable: false),
                     NacionalidadId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -37,8 +35,7 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
                 {
                     ExpedienteId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    EstudianteId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CantidadDocumentos = table.Column<int>(type: "INTEGER", nullable: false)
+                    EstudianteId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -92,14 +89,18 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
                     TipoDocumentoId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Descripcion = table.Column<string>(type: "TEXT", nullable: false),
-                    RequeridoaAdulto = table.Column<bool>(type: "INTEGER", nullable: false),
-                    VecesAsignado = table.Column<int>(type: "INTEGER", nullable: true),
                     Fecha = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    ExpedientesDetalleId = table.Column<int>(type: "INTEGER", nullable: true)
+                    ExpedientesDetalleId = table.Column<int>(type: "INTEGER", nullable: true),
+                    ExpedientesExpedienteId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TiposDocumentos", x => x.TipoDocumentoId);
+                    table.ForeignKey(
+                        name: "FK_TiposDocumentos_Expedientes_ExpedientesExpedienteId",
+                        column: x => x.ExpedientesExpedienteId,
+                        principalTable: "Expedientes",
+                        principalColumn: "ExpedienteId");
                     table.ForeignKey(
                         name: "FK_TiposDocumentos_ExpedientesDetalle_ExpedientesDetalleId",
                         column: x => x.ExpedientesDetalleId,
@@ -171,6 +172,11 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
                 name: "IX_TiposDocumentos_ExpedientesDetalleId",
                 table: "TiposDocumentos",
                 column: "ExpedientesDetalleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TiposDocumentos_ExpedientesExpedienteId",
+                table: "TiposDocumentos",
+                column: "ExpedientesExpedienteId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jeremy_Castillo_Ap1_PF.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20220403172916_inicial")]
+    [Migration("20220404180515_inicial")]
     partial class inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,15 +29,9 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("CantidadAsistencias")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Direccion")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("Edad")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -58,6 +52,7 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
 
                     b.Property<string>("Telefono")
                         .IsRequired()
+                        .HasMaxLength(15)
                         .HasColumnType("TEXT");
 
                     b.HasKey("EstudianteId");
@@ -69,9 +64,6 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
                 {
                     b.Property<int>("ExpedienteId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CantidadDocumentos")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("EstudianteId")
@@ -188,18 +180,17 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
                     b.Property<int?>("ExpedientesDetalleId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("ExpedientesExpedienteId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("TEXT");
-
-                    b.Property<bool>("RequeridoaAdulto")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("VecesAsignado")
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("TipoDocumentoId");
 
                     b.HasIndex("ExpedientesDetalleId");
+
+                    b.HasIndex("ExpedientesExpedienteId");
 
                     b.ToTable("TiposDocumentos");
                 });
@@ -225,6 +216,10 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
                     b.HasOne("Jeremy_Castillo_Ap1_PF.Entidades.ExpedientesDetalle", null)
                         .WithMany("TiposDocumentos")
                         .HasForeignKey("ExpedientesDetalleId");
+
+                    b.HasOne("Jeremy_Castillo_Ap1_PF.Entidades.Expedientes", null)
+                        .WithMany("TiposDocumentos")
+                        .HasForeignKey("ExpedientesExpedienteId");
                 });
 
             modelBuilder.Entity("Jeremy_Castillo_Ap1_PF.Entidades.Estudiantes", b =>
@@ -235,6 +230,8 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
             modelBuilder.Entity("Jeremy_Castillo_Ap1_PF.Entidades.Expedientes", b =>
                 {
                     b.Navigation("ExpedienteDetalle");
+
+                    b.Navigation("TiposDocumentos");
                 });
 
             modelBuilder.Entity("Jeremy_Castillo_Ap1_PF.Entidades.ExpedientesDetalle", b =>

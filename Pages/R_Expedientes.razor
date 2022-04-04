@@ -157,8 +157,12 @@
     {
         expedientes = new Expedientes();
         tiposDocumentos = new TiposDocumentos();
+        estudiantes = new Estudiantes();
     }
-
+    public void NuevoDetalle()
+    {
+        expedientesDetalle = new ExpedientesDetalle();
+    }
     public void Buscar()
     {
         if (this.expedientes.ExpedienteId> 0)
@@ -179,6 +183,7 @@
     public void Agregar()
     {
         this.expedientes.ExpedienteDetalle.Add(expedientesDetalle);
+        NuevoDetalle();
     }
 
 
@@ -191,6 +196,7 @@
     {
         if (ExpedientesBLL.Guardar(expedientes))
         {
+            Nuevo();
             toastService.ShowInfo("Se guardó exitosamente");
         }
         else

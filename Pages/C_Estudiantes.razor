@@ -14,8 +14,9 @@
                         <select class="form-control col-2" @bind="Filtro">
                             <option value="0">Estudiante Id</option>
                             <option value="1">Nombre</option>
-                            <option value="2">Apellido</option>\
-                            <option value="3">Edad</option>
+                            <option value="2">Apellido</option>
+                            <option value="3">Direccion</option>
+                            <option value="3">Sexo</option>
                         </select>
                     </div>
                     <div class="flex-fill mx-2">
@@ -49,7 +50,6 @@
                     <th>Telefono</th>
                     <th>Sexo</th>
                     <th>Fecha Nacimiento</th>
-                    <th>Edad</th>
                     <th>NacionalidadId</th>
                 </tr>
             </thead>
@@ -64,7 +64,6 @@
                         <td>@item.Telefono</td>
                         <td>@item.Sexo</td>
                         <td>@item.FechaNacimiento</td>
-                        <td>@item.Edad</td>
                         <td>@item.NacionalidadId</td>
 
                         <td><a class="btn btn-sm btn-outline-primary oi oi-eye" href="R_Estudiantes/@item.EstudianteId">Ver</a>
@@ -94,33 +93,24 @@
         {
             switch (Filtro)
             {
-                 case "0":               
-                    if (desde != null || hasta != null)
-                        lista = EstudiantesBLL.GetList(p => p.EstudianteId == int.Parse(Criterio) && (p.FechaNacimiento >= desde && p.FechaNacimiento <= hasta) );
-                    else
-                        lista = EstudiantesBLL.GetList(p => p.EstudianteId == int.Parse(Criterio) || (p.FechaNacimiento >= desde && p.FechaNacimiento <= hasta) );                
+                 case "0":
+                    lista = EstudiantesBLL.GetList(p => p.EstudianteId == int.Parse(Criterio));
                 break;
 
                 case "1":
-                    if (desde != null || hasta != null)
-                        lista = EstudiantesBLL.GetList(p => p.Nombre.ToLower().Contains(Criterio.ToLower()) && (p.FechaNacimiento >= desde && p.FechaNacimiento <= hasta));
-                    else
-                        lista = EstudiantesBLL.GetList(p => p.Nombre.ToLower().Contains(Criterio.ToLower()) || (p.FechaNacimiento >= desde && p.FechaNacimiento <= hasta));                
-                break;
-                
-                case "2":               
-                    if (desde != null || hasta != null)
-                        lista = EstudiantesBLL.GetList(p => p.Apellidos.ToLower().Contains(Criterio.ToLower()) && (p.FechaNacimiento >= desde && p.FechaNacimiento <= hasta));
-                    else
-                        lista = EstudiantesBLL.GetList(p => p.Apellidos.ToLower().Contains(Criterio.ToLower()) || (p.FechaNacimiento >= desde && p.FechaNacimiento <= hasta));               
+                    lista = EstudiantesBLL.GetList(p => p.Nombre.ToLower().Contains(Criterio.ToLower()));
                 break;
 
-                case "3":           
-                    if (desde != null || hasta != null)
-                        lista = EstudiantesBLL.GetList(p => p.Edad == int.Parse(Criterio) && (p.FechaNacimiento >= desde && p.FechaNacimiento <= hasta) );
-                    else
-                        lista = EstudiantesBLL.GetList(p => p.Edad == int.Parse(Criterio) || (p.FechaNacimiento >= desde && p.FechaNacimiento <= hasta) );                
-                break;                 
+                case "2":
+                    lista = EstudiantesBLL.GetList(p => p.Apellidos.ToLower().Contains(Criterio.ToLower()));
+                break;
+
+                case "3":
+                    lista = EstudiantesBLL.GetList(p => p.Direccion.ToLower().Contains(Criterio.ToLower()));
+                break;     
+                case "4":
+                    lista = EstudiantesBLL.GetList(p => p.Sexo.ToString().Contains(Criterio.ToLower()));
+                break;            
             }
         }
         else

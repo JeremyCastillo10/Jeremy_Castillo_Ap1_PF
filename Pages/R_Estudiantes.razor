@@ -140,18 +140,6 @@
 
                </div>
 
-                @*Edad*@
-
-               <div class="form-group">
-
-                   <label>Edad</label>
-
-                   <InputNumber readonly class="form-control" @bind-Value = "estudiante.Edad"/>
-
-                   <ValidationMessage For="@(() =>estudiante.Edad)"/>
-
-               </div>
-
 
                 <div class="card-footer">
                 <div class="form-group text-center" display: inline-block>
@@ -186,11 +174,6 @@
 
         Buscar();
     }
-    public void CalcularEdad()
-    {
-        DateTime Actual = DateTime.Today;
-        estudiante.Edad = Actual.Year - estudiante.FechaNacimiento.Year;
-    }
 
     public void Buscar()
     {
@@ -218,7 +201,7 @@
     {
         if (EstudiantesBLL.Guardar(estudiante))
         {
-           CalcularEdad();
+            Nuevo();
             toastService.ShowSuccess("Se guardó exitosamente");
         }
         else

@@ -13,6 +13,7 @@ namespace Jeremy_Castillo_Ap1_PF.BLL
         private Contexto _contexto;
 
         Expedientes Expedientes = new Expedientes();
+        public List<TiposDocumentos>? listaTipos = new List<TiposDocumentos>();
 
 
         public ExpedientesBLL(Contexto contexto)
@@ -43,6 +44,7 @@ namespace Jeremy_Castillo_Ap1_PF.BLL
             try
             {
                 if (_contexto.Expedientes.Add(expediente) != null)
+                
                     paso = _contexto.SaveChanges() > 0;
             }
             catch (Exception)
