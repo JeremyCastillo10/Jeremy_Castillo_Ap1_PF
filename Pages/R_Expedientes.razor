@@ -93,6 +93,7 @@
                                         </td>
                                     </tr>
                                 }
+                                Cant:@Cantidad
                             </tbody>
                         </table>
                             </div>
@@ -115,6 +116,7 @@
 {
     [Parameter]
     public int ExpedienteId { get; set; }
+    public int Cantidad { get; set; }
 
     public Estudiantes estudiantes = new Estudiantes();
     public TiposDocumentos tiposDocumentos = new TiposDocumentos();
@@ -183,6 +185,7 @@
     public void Agregar()
     {
         this.expedientes.ExpedienteDetalle.Add(expedientesDetalle);
+        Cantidad++;
         NuevoDetalle();
     }
 
@@ -190,12 +193,14 @@
     private void RemoverFila(ExpedientesDetalle item)
     {
         this.expedientes.ExpedienteDetalle.Remove(item);
+        Cantidad--;
     }
 
     private void Guardar()
     {
         if (ExpedientesBLL.Guardar(expedientes))
         {
+            Cantidad = 0;
             Nuevo();
             toastService.ShowInfo("Se guardó exitosamente");
         }
