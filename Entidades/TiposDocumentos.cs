@@ -19,6 +19,8 @@ namespace Jeremy_Castillo_Ap1_PF.Entidades
         [MinLength(2, ErrorMessage = "La Descripcion debe tener al menos {1} caractéres.")]
         public string? Descripcion { get; set; }
 
+        public int VecesAsignado { get; set; }
+
 
         [ForeignKey("TipoDocumentoId")]
 

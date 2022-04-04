@@ -43,7 +43,12 @@ namespace Jeremy_Castillo_Ap1_PF.BLL
 
             try
             {
-                if (_contexto.Expedientes.Add(expediente) != null)
+                _contexto.Expedientes.Add(expediente);
+                var lista = expediente.ExpedienteDetalle;
+                foreach(var item in lista)
+                {
+                    _contexto.TiposDocumentos.Find(item.TiposDocumentosId).VecesAsignado+=1;
+                }
                 
                     paso = _contexto.SaveChanges() > 0;
             }

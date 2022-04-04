@@ -184,6 +184,9 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("VecesAsignado")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("TipoDocumentoId");
 
                     b.HasIndex("ExpedientesDetalleId");

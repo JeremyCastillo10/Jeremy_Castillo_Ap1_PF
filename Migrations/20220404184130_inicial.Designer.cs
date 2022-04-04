@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jeremy_Castillo_Ap1_PF.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20220404180515_inicial")]
+    [Migration("20220404184130_inicial")]
     partial class inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -185,6 +185,9 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("VecesAsignado")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("TipoDocumentoId");
 

@@ -89,6 +89,7 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
                     TipoDocumentoId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Descripcion = table.Column<string>(type: "TEXT", nullable: false),
+                    VecesAsignado = table.Column<int>(type: "INTEGER", nullable: false),
                     Fecha = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ExpedientesDetalleId = table.Column<int>(type: "INTEGER", nullable: true),
                     ExpedientesExpedienteId = table.Column<int>(type: "INTEGER", nullable: true)
