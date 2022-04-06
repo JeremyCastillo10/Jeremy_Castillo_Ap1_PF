@@ -150,7 +150,6 @@
     {
         expedientes.ExpedienteId = ExpedienteId;
         lista = EstudiantesBLL.GetList(e => true);
-        listadetalle = ExpedientesBLL.GetListDetalle(d => true);
         listaExpediente = ExpedientesBLL.GetList(f => true);
         listaTipos = TiposDocumentosBLL.GetList(c => true);
         Buscar();
