@@ -7,7 +7,6 @@ namespace Jeremy_Castillo_Ap1_PF.Entidades
     public partial class Estudiantes
     {
         [Key]
-        [Range(0, int.MaxValue, ErrorMessage = "El EstudianteID debe estar en el rango de {1} y {2}.")]
         public int EstudianteId { get; set; }
 
         [Required(ErrorMessage ="Es obligatorio introducir el nombre")]
@@ -37,18 +36,17 @@ namespace Jeremy_Castillo_Ap1_PF.Entidades
         [MaxLength(15, ErrorMessage = "El telefono no debe pasar de {1} caractéres.")]   
         public string? Telefono { get; set; }
 
-        
-        [Required(ErrorMessage ="Es obligatorio introducir el Email")]
-        [MinLength(2, ErrorMessage = "El Email debe tener al menos {1} caractéres.")]
-        public string? Email { get; set; }
-
-        [ForeignKey("EstudianteId")]
-
 
         public int NacionalidadId { get; set; }
 
+        [ForeignKey("NacionalidadId")]
+        public virtual Nacionalidades Nacionalidad { get; set; }
 
-        public virtual List<Nacionalidades> Nacionalidades {get;set;}= new List<Nacionalidades>();
+        [ForeignKey("EstudianteId")]
+
+        [Required(ErrorMessage ="Es obligatorio introducir el Email")]
+        [MinLength(2, ErrorMessage = "El Email debe tener al menos {1} caractéres.")]
+        public string? Email { get; set; }
 
 
     }

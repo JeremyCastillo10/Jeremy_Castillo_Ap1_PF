@@ -162,7 +162,7 @@
     public int EstudianteId { get; set; }
 
     public Estudiantes estudiante{ get; set; } = new Estudiantes();
-    public List<Nacionalidades> lista = new List<Nacionalidades>();
+    public List<Nacionalidades> lista { get; set; } = new List<Nacionalidades>();
 
     [Inject]
     public EstudiantesBLL EstudiantesBLL { get; set; }

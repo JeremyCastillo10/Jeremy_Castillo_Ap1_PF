@@ -19,7 +19,6 @@ namespace Jeremy_Castillo_Ap1_PF.Entidades
 
         [ForeignKey("ExpedienteId")]
 
-        public virtual List<ExpedientesDetalle> ExpedienteDetalle {get; set;} = new List<ExpedientesDetalle>();
-        public virtual List<TiposDocumentos> TiposDocumentos {get; set;} = new List<TiposDocumentos>();
+        public  List<ExpedientesDetalle> ExpedienteDetalle {get; set;} = new List<ExpedientesDetalle>();
     }
 }

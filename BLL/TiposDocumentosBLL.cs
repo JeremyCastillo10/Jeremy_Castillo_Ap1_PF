@@ -41,8 +41,8 @@ namespace Jeremy_Castillo_Ap1_PF.BLL
             bool paso = false;
             try
             {
-                _contexto.TiposDocumentos.Add(tipo);
-                paso = _contexto.SaveChanges() > 0;
+                if (_contexto.TiposDocumentos.Add(tipo) != null)
+                    paso = _contexto.SaveChanges() > 0;
             }
             catch (Exception)
             {
@@ -82,21 +82,17 @@ namespace Jeremy_Castillo_Ap1_PF.BLL
 
        public TiposDocumentos? Buscar(int Id)
         {
-            TiposDocumentos? tiposDocumento;
-
+            TiposDocumentos? tipo;
             try
             {
-                tiposDocumento = _contexto.TiposDocumentos
-                    .Where(p => p.TipoDocumentoId == Id)
-                    .AsNoTracking()
-                    .SingleOrDefault();
+                tipo = _contexto.TiposDocumentos.Find(Id);
             }
             catch (Exception)
             {
                 throw;
             }
 
-            return tiposDocumento;
+            return tipo;
         }
 
         public bool Eliminar(int id)
@@ -123,19 +119,15 @@ namespace Jeremy_Castillo_Ap1_PF.BLL
       public List<TiposDocumentos> GetList(Expression<Func<TiposDocumentos, bool>> criterio)
         {
             List<TiposDocumentos> lista = new List<TiposDocumentos>();
-
             try
             {
-                lista = _contexto.TiposDocumentos
-                    .Where(criterio)
-                    .AsNoTracking()
-                    .ToList();
+                lista = _contexto.TiposDocumentos.Where(criterio).ToList();
             }
             catch (Exception)
             {
                 throw;
             }
-
+            
             return lista;
         }
        

@@ -80,7 +80,7 @@
 
     public DateTime? desde { get; set; } = null;
     public DateTime? hasta { get; set; } = null;
-    public List<Estudiantes> lista = new List<Estudiantes>();
+    public List<Estudiantes> lista { get; set; }= new List<Estudiantes>();
 
     [Inject]
     public EstudiantesBLL EstudiantesBLL { get; set; }
@@ -92,20 +92,32 @@
         {
             switch (Filtro)
             {
-                 case "0":
-                    lista = EstudiantesBLL.GetList(p => p.EstudianteId == int.Parse(Criterio));
-                break;
+                case "0":
+                    if(desde != null || hasta != null)
+                        lista = EstudiantesBLL.GetList(p => p.EstudianteId == int.Parse(Criterio) && (p.FechaNacimiento >= desde && p.FechaNacimiento <= hasta));
+                    else
+                        lista = EstudiantesBLL.GetList(p => p.EstudianteId == int.Parse(Criterio) || (p.FechaNacimiento >= desde && p.FechaNacimiento <= hasta));
+                    break;
 
                 case "1":
-                    lista = EstudiantesBLL.GetList(p => p.Nombre.ToLower().Contains(Criterio.ToLower()));
-                break;
+                    if(desde != null || hasta != null)
+                        lista = EstudiantesBLL.GetList(p => p.Nombre.ToLower().Contains(Criterio.ToLower()) &&  (p.FechaNacimiento >= desde && p.FechaNacimiento <= hasta));
+                    else
+                        lista = EstudiantesBLL.GetList(p => p.Nombre.ToLower().Contains(Criterio.ToLower()) || (p.FechaNacimiento >= desde && p.FechaNacimiento <= hasta));
+                    break;
 
                 case "2":
-                    lista = EstudiantesBLL.GetList(p => p.Apellidos.ToLower().Contains(Criterio.ToLower()));
+                    if(desde != null || hasta != null)
+                        lista = EstudiantesBLL.GetList(p => p.Apellidos.ToLower().Contains(Criterio.ToLower()) &&  (p.FechaNacimiento >= desde && p.FechaNacimiento <= hasta));
+                    else 
+                        lista = EstudiantesBLL.GetList(p => p.Apellidos.ToLower().Contains(Criterio.ToLower()) || (p.FechaNacimiento >= desde && p.FechaNacimiento <= hasta));                        
                 break;
 
                 case "3":
-                    lista = EstudiantesBLL.GetList(p => p.Direccion.ToLower().Contains(Criterio.ToLower()));
+                    if(desde != null || hasta != null)
+                         lista = EstudiantesBLL.GetList(p => p.Direccion.ToLower().Contains(Criterio.ToLower()) &&  (p.FechaNacimiento >= desde && p.FechaNacimiento <= hasta));
+                    else
+                        lista = EstudiantesBLL.GetList(p => p.Direccion.ToLower().Contains(Criterio.ToLower()) || (p.FechaNacimiento >= desde && p.FechaNacimiento <= hasta));
                 break;            
             }
         }

@@ -56,12 +56,13 @@ namespace Jeremy_Castillo_Ap1_PF.BLL
         private bool Modificar(Estudiantes estudiante)
         {
             bool paso = false;
+
             try
             {
                 _contexto.Entry(estudiante).State = EntityState.Modified;
                 paso = _contexto.SaveChanges() > 0;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw;
             }
@@ -69,7 +70,6 @@ namespace Jeremy_Castillo_Ap1_PF.BLL
             {
                 _contexto.Dispose();
             }
-
             return paso;
         }
 
@@ -84,13 +84,9 @@ namespace Jeremy_Castillo_Ap1_PF.BLL
        public Estudiantes? Buscar(int Id)
         {
             Estudiantes? estudiante;
-
             try
             {
-                estudiante = _contexto.Estudiantes
-                    .Where(p => p.EstudianteId == Id)
-                    .AsNoTracking()
-                    .SingleOrDefault();
+                estudiante = _contexto.Estudiantes.Find(Id);
             }
             catch (Exception)
             {
@@ -127,10 +123,8 @@ namespace Jeremy_Castillo_Ap1_PF.BLL
 
             try
             {
-                lista = _contexto.Estudiantes
-                    .Where(criterio)
-                    .AsNoTracking()
-                    .ToList();
+                lista = _contexto.Estudiantes.Where(criterio).ToList();
+                
             }
             catch (Exception)
             {

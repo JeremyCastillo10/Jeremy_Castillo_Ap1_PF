@@ -102,7 +102,7 @@ namespace Jeremy_Castillo_Ap1_PF.BLL
                     .Include(x => x.ExpedienteDetalle)
                     .Where(p => p.ExpedienteId == Id)
                     .AsNoTracking()
-                    .SingleOrDefault();
+                    .FirstOrDefault();
             }
             catch (Exception)
             {

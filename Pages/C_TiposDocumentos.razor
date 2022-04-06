@@ -1,10 +1,13 @@
 @page "/C_TiposDocumentos"
 
+@using Jeremy_Castillo_Ap1_PF.BLL;
+@using Jeremy_Castillo_Ap1_PF.Entidades;
+
 <EditForm Model="lista">
     <DataAnnotationsValidator />
     <div class="card">
         <div class="card-header">
-            <h3>Consulta de Estudiantes</h3>
+            <h3>Consulta de Documentos</h3>
         </div>
         <div class="card-body">
             <form>
@@ -42,6 +45,7 @@
                     <th>Tipo Documento Id</th>
                     <th>Descripcion</th>
                     <th>Veces Asignado</th>
+                    <th>Fecha</th>
                 </tr>
             </thead>
             <tbody>
@@ -51,6 +55,7 @@
                         <td>@item.TipoDocumentoId</td>
                         <td>@item.Descripcion</td>
                         <td>@item.VecesAsignado</td>
+                        <td>@item.Fecha</td>
 
                         <td><a class="btn btn-sm btn-outline-primary oi oi-eye" href="R_TiposDocumentos/@item.TipoDocumentoId">Ver</a>
                         </td>
@@ -64,7 +69,7 @@
 @code {
     public string? Filtro { get; set; }
     public string? Criterio { get; set; }
-    public List<TiposDocumentos> lista = new List<TiposDocumentos>();
+    public List<TiposDocumentos> lista { get; set; }= new List<TiposDocumentos>();
     public DateTime? desde { get; set; } = null;
     public DateTime? hasta { get; set; } = null;
 
@@ -78,13 +83,19 @@
         {
             switch (Filtro)
             {
-                 case "0":
-                    lista = TiposDocumentosBLL.GetList(p => p.TipoDocumentoId == int.Parse(Criterio));
-                break;
+                case "0":
+                    if(desde != null || hasta != null)
+                        lista = TiposDocumentosBLL.GetList(p => p.TipoDocumentoId == int.Parse(Criterio) && (p.Fecha >= desde && p.Fecha <= hasta));
+                    else
+                        lista = TiposDocumentosBLL.GetList(p => p.TipoDocumentoId == int.Parse(Criterio) || (p.Fecha >= desde && p.Fecha <= hasta));
+                    break;
 
                 case "1":
-                    lista = TiposDocumentosBLL.GetList(p => p.Descripcion.ToLower().Contains(Criterio.ToLower()));
-                break;
+                    if(desde != null || hasta != null)
+                        lista = TiposDocumentosBLL.GetList(p => p.Descripcion.ToLower().Contains(Criterio.ToLower()) &&  (p.Fecha >= desde && p.Fecha <= hasta));
+                    else
+                        lista = TiposDocumentosBLL.GetList(p => p.Descripcion.ToLower().Contains(Criterio.ToLower()) || (p.Fecha >= desde && p.Fecha <= hasta));
+                    break;
                  
                 
             }

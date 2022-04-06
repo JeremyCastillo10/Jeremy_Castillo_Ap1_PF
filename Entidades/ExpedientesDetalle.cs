@@ -24,7 +24,6 @@ namespace Jeremy_Castillo_Ap1_PF.Entidades
         public int TiposDocumentosId { get; set; }
 
 
-        public virtual List<TiposDocumentos> TiposDocumentos {get; set;} = new List<TiposDocumentos>();
 
     }
 

@@ -4,7 +4,7 @@
     <DataAnnotationsValidator />
     <div class="card">
         <div class="card-header">
-            <h3>Consulta de Estudiantes</h3>
+            <h3>Consulta de Expedientes</h3>
         </div>
         <div class="card-body">
             <form>
@@ -13,7 +13,7 @@
                         <label>Filtro</label>
                         <select class="form-control col-2" @bind="Filtro">
                             <option value="0">Expediente Id</option>
-                            <option value="1">Estudinate Id</option>
+                            <option value="1">Estudiante Id</option>
                         </select>
                     </div>
                     <div class="flex-fill mx-2">
@@ -62,7 +62,7 @@
 @code {
     public string? Filtro { get; set; }
     public string? Criterio { get; set; }
-    public List<Expedientes> lista = new List<Expedientes>();
+    public List<Expedientes> lista { get; set; }= new List<Expedientes>();
     public DateTime? desde { get; set; } = null;
     public DateTime? hasta { get; set; } = null;
 
@@ -80,7 +80,7 @@
                     lista = ExpedientesBLL.GetList(p => p.ExpedienteId == int.Parse(Criterio));
                 break;
 
-                case "2":
+                case "1":
                     lista = ExpedientesBLL.GetList(p => p.EstudianteId == int.Parse(Criterio));
                 break;
                  

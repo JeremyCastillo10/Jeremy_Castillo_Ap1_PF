@@ -12,7 +12,6 @@ namespace Jeremy_Castillo_Ap1_PF.Entidades
     public class TiposDocumentos
     {
         [Key]
-        [Range(0, int.MaxValue, ErrorMessage = "El TipoDocumentoID debe estar en el rango de {1} y {2}.")]
         public int TipoDocumentoId { get; set; }
 
         [Required(ErrorMessage ="Es obligatorio introducir la Descripcion")]
@@ -21,8 +20,6 @@ namespace Jeremy_Castillo_Ap1_PF.Entidades
 
         public int VecesAsignado { get; set; }
 
-
-        [ForeignKey("TipoDocumentoId")]
 
         [Required(ErrorMessage ="Es obligatorio introducir la Fecha")]
         public DateTime Fecha { get; set; }

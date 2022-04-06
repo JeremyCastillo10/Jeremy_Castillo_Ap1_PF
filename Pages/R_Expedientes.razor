@@ -118,20 +118,20 @@
     public int ExpedienteId { get; set; }
     public int Cantidad { get; set; }
 
-    public Estudiantes estudiantes = new Estudiantes();
-    public TiposDocumentos tiposDocumentos = new TiposDocumentos();
+    public Estudiantes estudiantes { get; set; } = new Estudiantes();
+    public TiposDocumentos tiposDocumentos { get; set; } = new TiposDocumentos();
 
     public Expedientes expedientes { get; set; } = new Expedientes();
 
-    public ExpedientesDetalle expedientesDetalle = new ExpedientesDetalle();
+    public ExpedientesDetalle expedientesDetalle { get; set; } = new ExpedientesDetalle();
 
-    public List<Estudiantes>? lista = new List<Estudiantes>();
+    public List<Estudiantes>? lista { get; set; }= new List<Estudiantes>();
 
-    public List<TiposDocumentos>? listaTipos = new List<TiposDocumentos>();
+    public List<TiposDocumentos>? listaTipos { get; set; }= new List<TiposDocumentos>();
 
-    public List<Expedientes>? listaExpediente = new List<Expedientes>();
+    public List<Expedientes>? listaExpediente { get; set; }= new List<Expedientes>();
 
-    public List<ExpedientesDetalle>? listadetalle = new List<ExpedientesDetalle>();
+    public List<ExpedientesDetalle>? listadetalle { get; set; }= new List<ExpedientesDetalle>();
 
     
 
