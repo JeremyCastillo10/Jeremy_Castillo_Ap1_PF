@@ -51,27 +51,6 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ExpedientesDetalle",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    ExpedienteId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Fecha = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    TiposDocumentosId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ExpedientesDetalle", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ExpedientesDetalle_Expedientes_ExpedienteId",
-                        column: x => x.ExpedienteId,
-                        principalTable: "Expedientes",
-                        principalColumn: "ExpedienteId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Estudiantes",
                 columns: table => new
                 {
@@ -94,6 +73,45 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
                         column: x => x.NacionalidadId,
                         principalTable: "Nacionalidades",
                         principalColumn: "NacionalidadId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ExpedientesDetalle",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ExpedienteId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Fecha = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    TiposDocumentosId = table.Column<int>(type: "INTEGER", nullable: false),
+                    EstudiantesEstudianteId = table.Column<int>(type: "INTEGER", nullable: true),
+                    ExpedientesDetalleId = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExpedientesDetalle", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ExpedientesDetalle_Estudiantes_EstudiantesEstudianteId",
+                        column: x => x.EstudiantesEstudianteId,
+                        principalTable: "Estudiantes",
+                        principalColumn: "EstudianteId");
+                    table.ForeignKey(
+                        name: "FK_ExpedientesDetalle_Expedientes_ExpedienteId",
+                        column: x => x.ExpedienteId,
+                        principalTable: "Expedientes",
+                        principalColumn: "ExpedienteId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ExpedientesDetalle_ExpedientesDetalle_ExpedientesDetalleId",
+                        column: x => x.ExpedientesDetalleId,
+                        principalTable: "ExpedientesDetalle",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ExpedientesDetalle_TiposDocumentos_TiposDocumentosId",
+                        column: x => x.TiposDocumentosId,
+                        principalTable: "TiposDocumentos",
+                        principalColumn: "TipoDocumentoId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -153,27 +171,42 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
                 column: "NacionalidadId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ExpedientesDetalle_EstudiantesEstudianteId",
+                table: "ExpedientesDetalle",
+                column: "EstudiantesEstudianteId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ExpedientesDetalle_ExpedienteId",
                 table: "ExpedientesDetalle",
                 column: "ExpedienteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExpedientesDetalle_ExpedientesDetalleId",
+                table: "ExpedientesDetalle",
+                column: "ExpedientesDetalleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExpedientesDetalle_TiposDocumentosId",
+                table: "ExpedientesDetalle",
+                column: "TiposDocumentosId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ExpedientesDetalle");
+
+            migrationBuilder.DropTable(
                 name: "Estudiantes");
 
             migrationBuilder.DropTable(
-                name: "ExpedientesDetalle");
+                name: "Expedientes");
 
             migrationBuilder.DropTable(
                 name: "TiposDocumentos");
 
             migrationBuilder.DropTable(
                 name: "Nacionalidades");
-
-            migrationBuilder.DropTable(
-                name: "Expedientes");
         }
     }
 }

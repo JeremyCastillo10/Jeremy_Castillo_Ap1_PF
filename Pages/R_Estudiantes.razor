@@ -23,9 +23,10 @@
                                 <span class="input-group-text">ID Estudiante</span>
                                 <InputNumber @bind-Value="estudiante.EstudianteId" class="form-control col-4" />
                                 <ValidationMessage For="@(() => estudiante.EstudianteId)" />
-                                <div class="input-group-append">
-                                    <button type="button" class="btn btn-primary input-group-text"
-                                        @onclick="Buscar"><span class="oi oi-magnifying-glass">Buscar</span></button>
+                                <div>
+                                    <button type="button"
+                                    class="btn btn-primary input-group-text oi oi-magnifying-glass"
+                                    @onclick="Buscar">Buscar</button>
                                 </div>
                             </div>
                         </div>
@@ -107,9 +108,7 @@
 
                    <ValidationMessage For="@(() =>estudiante.Email)"/>
 
-               </div>
-
-                
+               </div>               
 
                
 

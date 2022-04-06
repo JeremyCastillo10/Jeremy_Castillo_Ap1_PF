@@ -18,7 +18,7 @@
                                 <div class="input-group">
                                     <InputNumber @bind-Value="expedientes.ExpedienteId" class="form-control" />
                                     <div>
-                                        <button type="submit"
+                                        <button type="button"
                                             class="btn btn-primary input-group-text oi oi-magnifying-glass"
                                             @onclick="Buscar">Buscar</button>
                                     </div>
@@ -29,7 +29,6 @@
                     <label>Estudiantes</label>
 
                    <InputSelect @bind-Value="expedientes.EstudianteId" class="form-control">
-                   <option value="Venezuela">.</option>
 
                     @foreach (var item in lista)
                      {

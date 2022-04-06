@@ -22,9 +22,10 @@
                                 <span class="input-group-text">Tipo Documento Id</span>
                                 <InputNumber @bind-Value="tiposDocumentos.TipoDocumentoId" class="form-control col-4" />
                                 <ValidationMessage For="@(() => tiposDocumentos.TipoDocumentoId)" />
-                                <div class="input-group-append">
-                                    <button type="button" class="btn btn-primary input-group-text"
-                                        @onclick="Buscar"><span class="oi oi-magnifying-glass">Buscar</span></button>
+                                <div>
+                                    <button type="button"
+                                            class="btn btn-primary input-group-text oi oi-magnifying-glass"
+                                            @onclick="Buscar">Buscar</button>
                                 </div>
                             </div>
                         </div>
