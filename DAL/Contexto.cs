@@ -10,7 +10,6 @@ namespace Jeremy_Castillo_Ap1_PF.DAL
         public DbSet<TiposDocumentos> TiposDocumentos {get; set;}
 
         public DbSet<Expedientes> Expedientes  {get; set;}
-        public DbSet<ExpedientesDetalle> ExpedientesDetalle  {get; set;}
 
         public DbSet<Nacionalidades> Nacionalidades {get; set;}
         

@@ -148,20 +148,6 @@ namespace Jeremy_Castillo_Ap1_PF.BLL
             return lista;
         }
 
-        public List<ExpedientesDetalle> GetListDetalle(Expression<Func<ExpedientesDetalle, bool>> criterio)
-        {
-            List<ExpedientesDetalle> lista = new List<ExpedientesDetalle>();
-            try
-            {
-                lista = _contexto.ExpedientesDetalle.Where(criterio).ToList();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            
-            return lista;
-        }
        
     }
 }
