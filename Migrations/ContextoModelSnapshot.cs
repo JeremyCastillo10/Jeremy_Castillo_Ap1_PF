@@ -80,13 +80,7 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("EstudiantesEstudianteId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("ExpedienteId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("ExpedientesDetalleId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("Fecha")
@@ -97,13 +91,7 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EstudiantesEstudianteId");
-
                     b.HasIndex("ExpedienteId");
-
-                    b.HasIndex("ExpedientesDetalleId");
-
-                    b.HasIndex("TiposDocumentosId");
 
                     b.ToTable("ExpedientesDetalle");
                 });
@@ -208,43 +196,14 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
 
             modelBuilder.Entity("Jeremy_Castillo_Ap1_PF.Entidades.ExpedientesDetalle", b =>
                 {
-                    b.HasOne("Jeremy_Castillo_Ap1_PF.Entidades.Estudiantes", null)
-                        .WithMany("ExpedienteDetalle")
-                        .HasForeignKey("EstudiantesEstudianteId");
-
                     b.HasOne("Jeremy_Castillo_Ap1_PF.Entidades.Expedientes", null)
                         .WithMany("ExpedienteDetalle")
                         .HasForeignKey("ExpedienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Jeremy_Castillo_Ap1_PF.Entidades.ExpedientesDetalle", null)
-                        .WithMany("ExpedienteDetalle")
-                        .HasForeignKey("ExpedientesDetalleId");
-
-                    b.HasOne("Jeremy_Castillo_Ap1_PF.Entidades.TiposDocumentos", null)
-                        .WithMany("ExpedienteDetalle")
-                        .HasForeignKey("TiposDocumentosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Jeremy_Castillo_Ap1_PF.Entidades.Estudiantes", b =>
-                {
-                    b.Navigation("ExpedienteDetalle");
                 });
 
             modelBuilder.Entity("Jeremy_Castillo_Ap1_PF.Entidades.Expedientes", b =>
-                {
-                    b.Navigation("ExpedienteDetalle");
-                });
-
-            modelBuilder.Entity("Jeremy_Castillo_Ap1_PF.Entidades.ExpedientesDetalle", b =>
-                {
-                    b.Navigation("ExpedienteDetalle");
-                });
-
-            modelBuilder.Entity("Jeremy_Castillo_Ap1_PF.Entidades.TiposDocumentos", b =>
                 {
                     b.Navigation("ExpedienteDetalle");
                 });
