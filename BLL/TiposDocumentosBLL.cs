@@ -64,10 +64,6 @@ namespace Jeremy_Castillo_Ap1_PF.BLL
             {
                 throw;
             }
-            finally
-            {
-                _contexto.Dispose();
-            }
 
             return paso;
         }
