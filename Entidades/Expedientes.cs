@@ -17,6 +17,8 @@ namespace Jeremy_Castillo_Ap1_PF.Entidades
 
         public int EstudianteId { get; set; }
 
+        public int CantidadDocumentos { get; set; }
+
         [ForeignKey("ExpedienteId")]
 
         public  List<ExpedientesDetalle> ExpedienteDetalle {get; set;} = new List<ExpedientesDetalle>();

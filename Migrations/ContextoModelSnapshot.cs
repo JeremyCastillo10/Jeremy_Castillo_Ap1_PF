@@ -66,6 +66,9 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("CantidadDocumentos")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("EstudianteId")
                         .HasColumnType("INTEGER");
 

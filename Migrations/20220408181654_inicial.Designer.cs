@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jeremy_Castillo_Ap1_PF.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20220406205323_inicial")]
+    [Migration("20220408181654_inicial")]
     partial class inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,6 +66,9 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
                 {
                     b.Property<int>("ExpedienteId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CantidadDocumentos")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("EstudianteId")

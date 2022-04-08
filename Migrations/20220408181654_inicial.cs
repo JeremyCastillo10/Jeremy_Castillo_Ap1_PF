@@ -15,7 +15,8 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
                 {
                     ExpedienteId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    EstudianteId = table.Column<int>(type: "INTEGER", nullable: false)
+                    EstudianteId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CantidadDocumentos = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -92,8 +92,13 @@
                                         </td>
                                     </tr>
                                 }
-                                Cant:@Cantidad
+
                             </tbody>
+                            <div  class="input-group">
+
+                                    <label>Cant:</label><InputNumber class="form-group" @bind-Value = "expedientes.CantidadDocumentos"/>
+
+                                 </div> 
                         </table>
                             </div>
                         </div>
@@ -182,9 +187,17 @@
 
     public void Agregar()
     {
+        if(expedientesDetalle.TiposDocumentosId != 0)
+        {
         this.expedientes.ExpedienteDetalle.Add(expedientesDetalle);
         Cantidad++;
         NuevoDetalle();
+        expedientes.CantidadDocumentos = Cantidad;
+        }
+        else
+        {
+            toastService.ShowError("No se pueden agregar Detalles Nulos");
+        }
     }
 
 
@@ -192,6 +205,7 @@
     {
         this.expedientes.ExpedienteDetalle.Remove(item);
         Cantidad--;
+        expedientes.CantidadDocumentos = Cantidad;
     }
 
     private void Guardar()
