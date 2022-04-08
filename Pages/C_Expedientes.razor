@@ -41,6 +41,8 @@
                 <tr class="table">
                     <th>Expediente Id</th>
                     <th>Estudiante Id</th>
+                    <th>Nombre Estudiante</th>
+                    <th>Cantidad Documentos</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,7 +51,8 @@
                     <tr>
                         <td>@item.ExpedienteId</td>
                         <td>@item.EstudianteId</td>
-
+                        <td>@item.EstudianteNombre</td>
+                        <td>@item.CantidadDocumentos</td>
                         <td><a class="btn btn-sm btn-outline-primary oi oi-eye" href="R_Expedientes/@item.ExpedienteId">Ver</a>
                         </td>
                     </tr>
@@ -82,6 +85,9 @@
 
                 case "1":
                     lista = ExpedientesBLL.GetList(p => p.EstudianteId == int.Parse(Criterio));
+                break;
+                case "2":
+                    lista = ExpedientesBLL.GetList(p => p.EstudianteNombre.ToLower().Contains(Criterio.ToLower()));
                 break;
                  
                 

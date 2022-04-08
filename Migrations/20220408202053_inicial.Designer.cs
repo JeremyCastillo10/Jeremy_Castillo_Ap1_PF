@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jeremy_Castillo_Ap1_PF.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20220408181654_inicial")]
+    [Migration("20220408202053_inicial")]
     partial class inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,6 +74,9 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
                     b.Property<int>("EstudianteId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("EstudianteNombre")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("ExpedienteId");
 
                     b.ToTable("Expedientes");
@@ -84,6 +87,9 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("ExpedienteId")
                         .HasColumnType("INTEGER");

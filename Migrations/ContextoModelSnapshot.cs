@@ -72,6 +72,9 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
                     b.Property<int>("EstudianteId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("EstudianteNombre")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("ExpedienteId");
 
                     b.ToTable("Expedientes");
@@ -82,6 +85,9 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("ExpedienteId")
                         .HasColumnType("INTEGER");

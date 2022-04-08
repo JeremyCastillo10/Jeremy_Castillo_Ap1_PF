@@ -16,6 +16,8 @@ namespace Jeremy_Castillo_Ap1_PF.Entidades
         public int ExpedienteId { get; set; }
 
         public int EstudianteId { get; set; }
+        public string? EstudianteNombre { get; set; }
+
 
         public int CantidadDocumentos { get; set; }
 

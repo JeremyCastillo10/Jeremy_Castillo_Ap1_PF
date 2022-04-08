@@ -28,7 +28,7 @@
                     </div>
                     <label>Estudiantes</label>
 
-                   <InputSelect @bind-Value="expedientes.EstudianteId" class="form-control">
+                   <InputSelect @bind-Value="estudiantes.EstudianteId" class="form-control">
 
                     @foreach (var item in lista)
                      {
@@ -55,7 +55,7 @@
 
                             <div class="flex-fill mx-2">
                                 <label>Tipo Documento</label>
-                                <InputSelect @bind-Value="expedientesDetalle.TiposDocumentosId" class="form-control">
+                                <InputSelect @bind-Value="tiposDocumentos.TipoDocumentoId" class="form-control">
 
                                     @foreach (var item in listaTipos)
                                     {
@@ -64,7 +64,7 @@
                                     }
 
                                 </InputSelect>
-                            </div>
+                            </div> 
                             <button type="button" class="btn btn-lg btn-primary oi oi-plus"
                                     @onclick="Agregar">Add</button>
 
@@ -84,7 +84,7 @@
                                 {
                                     <tr>
                                         <td>@item.Fecha</td>
-                                        <td>@item.TiposDocumentosId</td>
+                                        <td>@item.Descripcion</td>
                                         <td>
                                             <span class="btn btn-sm btn-outline-primary oi oi-ban" href="#"
                                                 @onclick=" (() => RemoverFila(item)) "> Remover
@@ -187,8 +187,13 @@
 
     public void Agregar()
     {
+        TiposDocumentos enco = TiposDocumentosBLL.Buscar(tiposDocumentos.TipoDocumentoId);
+        this.tiposDocumentos = enco;
+        expedientesDetalle.TiposDocumentosId = tiposDocumentos.TipoDocumentoId;
+        expedientesDetalle.Descripcion = tiposDocumentos.Descripcion;
         if(expedientesDetalle.TiposDocumentosId != 0)
         {
+        tiposDocumentos = new TiposDocumentos();
         this.expedientes.ExpedienteDetalle.Add(expedientesDetalle);
         Cantidad++;
         NuevoDetalle();
@@ -212,6 +217,10 @@
     {
         if (ExpedientesBLL.Guardar(expedientes))
         {
+            Estudiantes encontrado = EstudiantesBLL.Buscar(estudiantes.EstudianteId);
+        this.estudiantes = encontrado;
+        expedientes.EstudianteNombre = estudiantes.Nombre + "\t" + estudiantes.Apellidos;
+        expedientes.EstudianteId = estudiantes.EstudianteId;
             Cantidad = 0;
             Nuevo();
             toastService.ShowInfo("Se guardó exitosamente");

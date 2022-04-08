@@ -21,7 +21,11 @@ namespace Jeremy_Castillo_Ap1_PF.Entidades
         [Required(ErrorMessage ="Es obligatorio introducir la Fecha de entrega")]
         public DateTime Fecha { get; set; }
 
+        public string ? Descripcion { get; set; }
+
         public int TiposDocumentosId { get; set; }
+
+
 
 
 

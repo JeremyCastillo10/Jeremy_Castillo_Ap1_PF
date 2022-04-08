@@ -16,6 +16,7 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
                     ExpedienteId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     EstudianteId = table.Column<int>(type: "INTEGER", nullable: false),
+                    EstudianteNombre = table.Column<string>(type: "TEXT", nullable: true),
                     CantidadDocumentos = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -59,6 +60,7 @@ namespace Jeremy_Castillo_Ap1_PF.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     ExpedienteId = table.Column<int>(type: "INTEGER", nullable: false),
                     Fecha = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Descripcion = table.Column<string>(type: "TEXT", nullable: true),
                     TiposDocumentosId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
