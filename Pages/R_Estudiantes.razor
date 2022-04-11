@@ -40,19 +40,19 @@
 
                    <label>Nombre</label>
 
-                   <InputText class="form-control" @bind-Value = "estudiante.Nombre"/>
+                   <InputText class="form-control" @bind-Value = "estudiante.Nombre" placeholder="Ej: Jeremy"/>
 
                    <ValidationMessage For="@(() =>estudiante.Nombre)"/>
 
                </div>
 
-                @*Apellido Paterno*@
+                @*Apellidos*@
 
                <div class="form-group">
 
                    <label>Apellidos</label>
 
-                   <InputText class="form-control" @bind-Value = "estudiante.Apellidos"/>
+                   <InputText class="form-control" @bind-Value = "estudiante.Apellidos" placeholder="Ej: Castillo"/>
 
                    <ValidationMessage For="@(() =>estudiante.Apellidos)"/>
 
@@ -66,7 +66,7 @@
 
                    <label>Direccion</label>
 
-                   <InputText class="form-control" @bind-Value = "estudiante.Direccion"/>
+                   <InputText class="form-control" @bind-Value = "estudiante.Direccion" placeholder="Ej: Clavijo, Casa#2"/>
 
                    <ValidationMessage For="@(() =>estudiante.Direccion)"/>
 
@@ -94,7 +94,7 @@
 
                    <label>Telefono</label>
 
-                   <InputText class="form-control" @bind-Value = "estudiante.Telefono"/>
+                   <InputText class="form-control" @bind-Value = "estudiante.Telefono" placeholder="Ej: 809-342-2342"/>
 
                    <ValidationMessage For="@(() =>estudiante.Telefono)"/>
 
@@ -104,7 +104,7 @@
 
                    <label>Email</label>
 
-                   <InputText class="form-control" @bind-Value = "estudiante.Email"/>
+                   <InputText class="form-control" @bind-Value = "estudiante.Email" placeholder="Ej: Jeremy@gmail.com"/>
 
                    <ValidationMessage For="@(() =>estudiante.Email)"/>
 
