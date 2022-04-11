@@ -36,6 +36,22 @@ namespace Jeremy_Castillo_Ap1_PF.BLL
             return paso;
         }
 
+         public bool ExisteDescripcion(string ? descripcion)
+        {
+            bool paso = false;
+
+            try
+            {
+                paso = _contexto.TiposDocumentos.Any(p => p.Descripcion.ToLower() == descripcion.ToLower());
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return paso;
+        }
+
         private bool Insertar(TiposDocumentos tipo)
         {
             bool paso = false;

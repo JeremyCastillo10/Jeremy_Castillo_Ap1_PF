@@ -28,7 +28,9 @@
                     </div>
                     <label>Estudiantes</label>
 
-                   <InputSelect @bind-Value="estudiantes.EstudianteId" class="form-control">
+                   <InputSelect @bind-Value="expedientes.EstudianteId" class="form-select text-14">
+
+                   <option>  </option>
 
                     @foreach (var item in lista)
                      {
@@ -37,6 +39,7 @@
                       }
 
                   </InputSelect>
+                  <ValidationMessage For="@(() =>expedientes.EstudianteId)"/>
 
                </div>
 
@@ -55,7 +58,7 @@
 
                             <div class="flex-fill mx-2">
                                 <label>Tipo Documento</label>
-                                <InputSelect @bind-Value="tiposDocumentos.TipoDocumentoId" class="form-control">
+                                <InputSelect @bind-Value="tiposDocumentos.TipoDocumentoId" class="form-select text-14">
 
                                     @foreach (var item in listaTipos)
                                     {
@@ -191,7 +194,11 @@
         this.tiposDocumentos = enco;
         expedientesDetalle.TiposDocumentosId = tiposDocumentos.TipoDocumentoId;
         expedientesDetalle.Descripcion = tiposDocumentos.Descripcion;
-        
+
+        Estudiantes encontrado = EstudiantesBLL.Buscar(expedientes.EstudianteId);
+        this.estudiantes = encontrado;
+        expedientes.EstudianteNombre = estudiantes.Nombre + "\t" + estudiantes.Apellidos;
+
         if(expedientesDetalle.TiposDocumentosId != 0)
         {
         tiposDocumentos = new TiposDocumentos();
@@ -218,10 +225,7 @@
     {
         if (ExpedientesBLL.Guardar(expedientes))
         {
-            Estudiantes encontrado = EstudiantesBLL.Buscar(estudiantes.EstudianteId);
-        this.estudiantes = encontrado;
-        expedientes.EstudianteNombre = estudiantes.Nombre + "\t" + estudiantes.Apellidos;
-        expedientes.EstudianteId = estudiantes.EstudianteId;
+        @* expedientes.EstudianteId = estudiantes.EstudianteId;  *@
             Cantidad = 0;
             Nuevo();
             toastService.ShowInfo("Se guardó exitosamente");

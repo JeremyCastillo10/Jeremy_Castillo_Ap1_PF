@@ -100,6 +100,7 @@
             else
             {
                 toastService.ShowError("No se encontró el Tipo de Documento");
+                
             }
         }
     }
@@ -111,6 +112,8 @@
 
     public void Guardar()
     {
+        if(TiposDocumentosBLL.ExisteDescripcion(tiposDocumentos.Descripcion) != true)
+        {
         if (TiposDocumentosBLL.Guardar(tiposDocumentos))
         {
             Nuevo();
@@ -118,6 +121,10 @@
         }
         else
             toastService.ShowError("No se pudo guardar.");
+        }
+        else{
+            toastService.ShowError("No se pudo guardar ya existe.");
+        }
     }
 
     private void Eliminar()

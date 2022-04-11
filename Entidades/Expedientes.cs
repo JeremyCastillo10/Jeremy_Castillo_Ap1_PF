@@ -15,6 +15,7 @@ namespace Jeremy_Castillo_Ap1_PF.Entidades
         [Range(0, int.MaxValue, ErrorMessage = "El ExpedienteID debe estar en el rango de {1} y {2}.")]
         public int ExpedienteId { get; set; }
 
+        [Range(1,int.MaxValue,ErrorMessage ="El selecionar un Estudiante")]
         public int EstudianteId { get; set; }
         public string? EstudianteNombre { get; set; }
 

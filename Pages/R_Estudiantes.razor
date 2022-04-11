@@ -77,7 +77,7 @@
 
                 <label>Sexo</label>
 
-               <InputSelect @bind-Value="estudiante.Sexo" class="form-control">
+               <InputSelect @bind-Value="estudiante.Sexo" class="form-select text-14">
 
                 <option value="M">Masculino</option>
                 <option value="F">Femenino</option>
@@ -94,7 +94,7 @@
 
                    <label>Telefono</label>
 
-                   <InputText class="form-control" @bind-Value = "estudiante.Telefono" placeholder="Ej: 809-342-2342"/>
+                   <InputText class="form-control" @bind-Value = "estudiante.Telefono" placeholder="Ej: 8093422342"/>
 
                    <ValidationMessage For="@(() =>estudiante.Telefono)"/>
 
@@ -125,7 +125,7 @@
 
                    <label>Nacionalidad</label>
 
-                   <InputSelect @bind-Value="estudiante.NacionalidadId" class="form-control">
+                   <InputSelect @bind-Value="estudiante.NacionalidadId" class="form-select text-14">
                    <option value="Venezuela">Venezuela</option>
 
                     @foreach (var item in lista)

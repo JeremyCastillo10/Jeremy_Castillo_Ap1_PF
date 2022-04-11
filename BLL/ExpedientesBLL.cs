@@ -146,7 +146,6 @@ namespace Jeremy_Castillo_Ap1_PF.BLL
             
             return lista;
         }
-
        
     }
 }

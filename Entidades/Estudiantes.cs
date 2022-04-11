@@ -44,7 +44,7 @@ namespace Jeremy_Castillo_Ap1_PF.Entidades
 
         [ForeignKey("EstudianteId")]
 
-        [Required(ErrorMessage ="Es obligatorio introducir el Email")]
+        [Required(ErrorMessage ="Es obligatorio introducir el Email"),EmailAddress]
         [MinLength(2, ErrorMessage = "El Email debe tener al menos {1} caractéres.")]
         public string? Email { get; set; }
 
